@@ -1,5 +1,6 @@
 // Purchase calls
 export const GET_ALL_PURCHASES_SUCCESS = 'GET_ALL_PURCHASES_SUCCESS'
+export const ADD_TRANSACTION_SUCCESS = 'ADD_TRANSACTION_SUCCESS'
 
 // AJAX call tracking
 export const BEGIN_AJAX_CALL = 'BEGIN_AJAX_CALL';

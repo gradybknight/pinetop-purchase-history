@@ -4,6 +4,7 @@ import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 import Header from './components/Header';
 import NewPurchaseContainer from './containers/NewPurchaseContainer';
+import * as purchaseActions from './actions/purchaseActions';
 
 const store = configureStore();
 
