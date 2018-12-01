@@ -6,6 +6,7 @@ import { Container, Row, Col } from 'reactstrap';
 import CustomerCard from '../components/CustomerCard';
 import ProductCounterCard from '../components/ProductCounterCard';
 import CustomerExistingPurchases from '../components/CustomerExistingPurchases';
+import ProductCounterCardFunctional from '../components/generics/ProductCounterCardFunctional';
 
 class NewPurchaseContainer extends React.Component {
   constructor( props, context ) {
@@ -26,6 +27,37 @@ class NewPurchaseContainer extends React.Component {
     this.props.purchaseActions.getAllPurchases();
   }
 
+  incrementCounter = (event) => {
+    console.log(event.target.name);
+    console.log(this.state);
+    if (event.target.name === 'gin') {
+      console.log('in gin')
+      if (this.state.gin<5) {
+        let newGinCount = this.state.gin + 1;
+        this.setState({gin:newGinCount});
+      }
+    } else {
+      if (this.state.shine<5) {
+        let newShineCount = this.state.shine + 1;
+        this.setState({shine:newShineCount});
+      }
+    }
+  }
+
+  decrementCounter = (event) => {
+    if (event.target.name === 'gin') {
+      if (this.state.gin>0) {
+        let newGinCount = this.state.gin - 1;
+        this.setState({gin:newGinCount});
+      }
+    } else {
+      if (this.state.shine>0) {
+        let newShineCount = this.state.shine - 1;
+        this.setState({shine:newShineCount});
+      }
+    }
+  }
+
   handleFormChanges = async (event) => {
     let value = event.target.value;
     const target = event.target.name;
@@ -42,7 +74,7 @@ class NewPurchaseContainer extends React.Component {
       customerFullName:this.state.customerFullName,
       customerEMailName:this.state.customerEMailName,
       customerLicenseNumber:this.state.customerLicenseNumber,
-      customerState:this.state.customerLicenseNumber,
+      customerState:this.state.customerState,
       epochTime:Date.now(),
       gin:this.state.gin,
       shine:this.state.shine
@@ -86,10 +118,21 @@ class NewPurchaseContainer extends React.Component {
               />
             </Col>
             <Col md="4">
-              {this.props.purchases.length>0?<CustomerExistingPurchases customerPurchases={this.props.purchases.filter(purchase => purchase.customerLicenseNumber === this.state.customerLicenseNumber)}/>:<span></span>}
+              {
+                this.props.purchases.length>0?
+                <CustomerExistingPurchases 
+                  customerPurchases={this.props.purchases.filter(purchase => purchase.customerLicenseNumber === this.state.customerLicenseNumber)}
+                />
+                :<span></span>}
             </Col>
           </Row>
-          <ProductCounterCard />
+          {/* <ProductCounterCard /> */}
+          <ProductCounterCardFunctional 
+            gin={this.state.gin}
+            shine={this.state.shine}
+            incrementCounter={this.incrementCounter}
+            decrementCounter={this.decrementCounter}
+          />
 
         </Container>
     );
