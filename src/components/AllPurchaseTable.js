@@ -2,8 +2,13 @@ import React from "react";
 import { Table, Container } from "reactstrap";
 import moment from "moment";
 
-const CustomerExistingPurchases = props => {
-  let customerPurchases = props.customerPurchases;
+const AllPurchaseTable = props => {
+  let purchases = props.purchases;
+  purchases.sort((firstPurchase, secondPurchae) => {
+    return secondPurchae.epochTime - firstPurchase.epochTime;
+  });
+  console.log(purchases);
+
   return (
     <div>
       <Container
@@ -19,17 +24,19 @@ const CustomerExistingPurchases = props => {
           <thead>
             <tr>
               <th>Date</th>
+              <th>Name</th>
               <th>Gin</th>
               <th>Shine</th>
             </tr>
           </thead>
           <tbody>
-            {customerPurchases.map((purchase, index) => {
+            {purchases.map((purchase, index) => {
               return (
                 <tr key={index}>
                   <td>
                     {moment(purchase.epochTime * 1000).format("MM/DD/YY")}
                   </td>
+                  <td>{purchase.customerFullName}</td>
                   <td>{purchase.gin}</td>
                   <td>{purchase.shine}</td>
                 </tr>
@@ -42,4 +49,4 @@ const CustomerExistingPurchases = props => {
   );
 };
 
-export default CustomerExistingPurchases;
+export default AllPurchaseTable;
